@@ -1,5 +1,6 @@
-package com.eric.rizz;
+package com.eric.rizz.school;
 
+import com.eric.rizz.student.Student;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

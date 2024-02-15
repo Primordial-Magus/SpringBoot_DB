@@ -1,6 +1,7 @@
-package com.eric.rizz;
+package com.eric.rizz.student;
 
 
+import com.eric.rizz.school.School;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 

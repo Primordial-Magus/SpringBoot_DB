@@ -1,4 +1,4 @@
-package com.eric.rizz;
+package com.eric.rizz.school;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

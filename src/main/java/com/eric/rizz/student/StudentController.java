@@ -1,5 +1,6 @@
-package com.eric.rizz;
+package com.eric.rizz.student;
 
+import com.eric.rizz.school.School;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,33 +10,18 @@ import java.util.List;
 @RestController
 public class StudentController {
 
-    private final StudentRepository repository;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository repository) {
-        this.repository = repository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
-
-//    @GetMapping("/hello")
-//    public String sayHello() {
-//        return "Hello from first controller";
-//    }
-//
-//    @PostMapping("/post")
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    public String post(
-//            @RequestBody String message
-//    ) {
-//        return "Request accepted and message is : " + message;
-//    }
 
     @PostMapping("/students")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public StudentResponseDTO post(
+    public StudentResponseDTO saveStudent(
             @RequestBody StudentDTO dto
     ) {
-        var student = toStudent(dto);
-        var savedStudent = repository.save(student);
-        return toStudentResponseDTO(savedStudent);
+        return this.studentService.saveStudent(dto);
     }
 
     private Student toStudent(StudentDTO dto) {
@@ -61,29 +47,27 @@ public class StudentController {
 
     @GetMapping("/students")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Student> findAllStudent() {
-        return repository.findAll();
+    public List<StudentResponseDTO> findAllStudent() {
+        return studentService.findAllStudent();
     }
 
     @GetMapping("/students/{student-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Student findStudentById(
+    public StudentResponseDTO findStudentById(
                 @PathVariable("student-id") Integer id
             ) {
 
-        return repository.findById(id).
-                orElse(new Student());
-
+        return studentService.findStudentById(id);
     }
 
 
     @GetMapping("/students/search/{student-name}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Student> findStudentByName(
+    public List<StudentResponseDTO> findStudentByName(
             @PathVariable("student-name") String name
     ) {
 
-        return repository.findAllByFirstnameContaining(name);
+        return this.studentService.findStudentByName(name);
 
     }
 
@@ -93,7 +77,7 @@ public class StudentController {
             @PathVariable("student-id") Integer id
     ) {
 
-        repository.deleteById(id);
+        this.studentService.delete(id);
     }
 
 

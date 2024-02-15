@@ -1,4 +1,4 @@
-package com.eric.rizz;
+package com.eric.rizz.school;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,23 +7,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class SchoolController {
-    private final SchoolRepository schoolRepository;
+    private final SchoolService schoolService;
 
-    public SchoolController(SchoolRepository schoolRepository) {
-        this.schoolRepository = schoolRepository;
+    public SchoolController(SchoolService schoolService) {
+        this.schoolService = schoolService;
     }
+
 
     @PostMapping("/schools")
     public SchoolDTO create(
             @RequestBody SchoolDTO dto
     ) {
-        var school = toSchool(dto);
-        var savedSchool = schoolRepository.save(school);
-        return dto;
+
+        return schoolService.create(dto);
     }
 
     private School toSchool(SchoolDTO dto) {
@@ -37,10 +36,7 @@ public class SchoolController {
     @GetMapping("/schools")
     public List<SchoolDTO> findAll()
     {
-        return schoolRepository.findAll()
-                .stream()
-                .map(this::toSchoolDTO)
-                .collect(Collectors.toList());
+        return schoolService.findAll();
 
     }
 
