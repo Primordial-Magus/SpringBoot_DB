@@ -13,7 +13,7 @@ public class RizzApplication {
 
 //		var ctx = SpringApplication.run(RizzApplication.class, args);
 		var app = new SpringApplication(RizzApplication.class);
-		app.setDefaultProperties(Collections.singletonMap("spring.profiles.active", "dev"));
+		app.setDefaultProperties(Collections.singletonMap("spring.profiles.active", ""));
 		var ctx = app.run(args);
 
 //		System.out.println(myFirstService.getCustomPropertyFromAnotherFile());
